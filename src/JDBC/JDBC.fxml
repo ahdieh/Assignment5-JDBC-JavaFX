@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane fx:id="gridPane"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JDBC.JDBCController">
+
+   <children>
+   
+      <!-- Image -->
+      
+      <ImageView fitHeight="68.0" fitWidth="498.0" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="0">
+         <image>
+            <Image url="@../../../../../third%20semester/Programming/images/town_b.gif" />
+         </image>
+      </ImageView>
+
+      <!-- Game -->
+
+      <Button fx:id="insertButton" 
+      onAction="#InsertButtonHandler" 
+      text="Add a GAME and PLAYER" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="0"  GridPane.rowIndex="1" 
+      GridPane.columnSpan="2"/>
+      
+       
+      <Label fx:id="gameLabel" 
+      opacity="0.2" 
+      text="Game's name:" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      
+      <TextField fx:id="gameTextField" 
+      visible="false" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         
+
+
+      <!-- Player -->
+      
+      
+      
+      <Label fx:id="firstNameLabel" 
+      opacity="0.2" text="First Name:" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="0" GridPane.rowIndex="4" />
+      
+      <TextField fx:id="firstNameTextField" 
+      visible="false" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      
+      <Label fx:id="lastNameLabel" 
+      opacity="0.2" 
+      text="Last Name:" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="0" GridPane.rowIndex="5" />
+      
+      <TextField fx:id="lastNameTextField" 
+      visible="false" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      
+      <Label fx:id="addressLabel" 
+      opacity="0.2" text="Address:" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="0" GridPane.rowIndex="6" />
+      
+      <TextArea fx:id="addressTextArea" 
+      visible="false" 
+       prefHeight="100"  prefWidth="150"
+      GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      
+      <Label fx:id="postalCodeLabel" 
+      opacity="0.2" 
+      text="Postal Code(a0a0a0):" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="0" GridPane.rowIndex="7" />
+      
+      <TextField fx:id="postalCodeTextField" 
+      visible="false" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      
+      <Label fx:id="provinceLabel" 
+      opacity="0.2" text="Province:" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="0" GridPane.rowIndex="8" />
+      
+      <TextField fx:id="provinceTextField" 
+      prefHeight="30"  prefWidth="150"
+      visible="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      
+      <Label fx:id="phoneLabel" 
+      opacity="0.2" 
+      text="Phone Number(0123456789):" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="0" GridPane.rowIndex="9" />
+      
+      <TextField fx:id="phoneTextField" 
+      visible="false" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      
+      <Button fx:id="updateButton"  
+      onAction="#UpdateButtonHandler" 
+      text="Update"
+      prefHeight="30"  prefWidth="150" 
+      GridPane.columnIndex="0" GridPane.rowIndex="10" />
+      
+      <Button fx:id="displayPlayerButton"  
+      text="Display Player"
+      onAction="#DisplayButtonHandler" 
+      prefHeight="30"  prefWidth="150" 
+      GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      
+      <Button fx:id="clearButton" 
+      onAction="#ClearButtonHandler" 
+      text="Clear" 
+      prefHeight="30"  prefWidth="150"
+      GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      
+      <TextArea fx:id="textArea" 
+      visible="false" 
+      GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      
+    
+
+   </children>
+  
+</GridPane>

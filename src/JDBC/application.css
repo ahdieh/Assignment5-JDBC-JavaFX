@@ -1,0 +1,25 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.image{
+	-fx-fill-width: true ;
+}
+#updateButton{
+	-fx-background-color: orange;
+}
+
+#insertButton{
+	-fx-background-color: Green;
+}
+
+#deletePlayerButton{
+	-fx-background-color: orange;
+
+}
+
+#clearButton{
+	-fx-background-color: Green;
+}
+.Button{
+	-fx-background-color: orange;
+}
+
