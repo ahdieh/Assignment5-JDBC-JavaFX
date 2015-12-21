@@ -5,21 +5,26 @@
 }
 #updateButton{
 	-fx-background-color: orange;
+	-fx-font-weight: bold;
 }
 
 #insertButton{
-	-fx-background-color: Green;
+	-fx-background-color: #58FA58;
+	-fx-font-weight: bold;
 }
 
-#deletePlayerButton{
-	-fx-background-color: orange;
+#displayPlayerButton{
+	-fx-background-color: #ffcccc;
+	-fx-font-weight: bold;
 
 }
 
 #clearButton{
-	-fx-background-color: Green;
+	-fx-background-color: #819FF7;
+	-fx-font-weight: bold;
 }
-.Button{
-	-fx-background-color: orange;
+
+.custom{
+	-fx-control-inner-background: #F2F5A9;
 }
 

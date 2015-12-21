@@ -1,17 +1,25 @@
 package JDBC;
 
+
+import java.awt.Color;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.spi.DateFormatProvider;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import com.sun.javafx.collections.MappingChange.Map;
 import com.sun.javafx.geom.transform.Identity;
 
 import JDBC.beans.Game;
 import JDBC.beans.Player;
+import JDBC.beans.PlayerAndGame;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,10 +33,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class JDBCController {
 	@FXML private ImageView imageView;
@@ -40,6 +52,8 @@ public class JDBCController {
 	@FXML private Label postalCodeLabel;
 	@FXML private Label provinceLabel;
 	@FXML private Label phoneLabel;
+	@FXML private Label playingDateLabel;
+	@FXML private Label scoreLabel;
 	
 	@FXML private TextField gameTextField;
 	@FXML private TextField firstNameTextField;
@@ -47,6 +61,8 @@ public class JDBCController {
 	@FXML private TextField postalCodeTextField;
 	@FXML private TextField provinceTextField;
 	@FXML private TextField phoneTextField;
+	@FXML private TextField playingDateTextField;
+	@FXML private TextField scoreTextField;
 	
 	@FXML private TextArea addressTextArea;
 	@FXML private TextArea textArea;
@@ -64,7 +80,7 @@ public class JDBCController {
 
 	// Display Game
 
-	// Add Game
+	// Add Player and Game
 	public void InsertButtonHandler(ActionEvent event){
 
 	    	gameLabel.setOpacity(1);
@@ -100,6 +116,7 @@ public class JDBCController {
       // insert or create
     Game insertGame = new Game();
     Player insertPlayer = new Player();
+    PlayerAndGame insertPlayerAndGame = new PlayerAndGame();
 
     try {
 	    insertGame.setTitle(gameTextField.getText());
@@ -110,6 +127,11 @@ public class JDBCController {
 		insertPlayer.setPostalCode(postalCodeTextField.getText());
 		insertPlayer.setProvince(provinceTextField.getText());
 		insertPlayer.setPhoneNumber(phoneTextField.getText());
+		
+		String dateString = playingDateTextField.getText();
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = (Date) formatter.parse(dateString);
+		insertPlayerAndGame.setPlayingDate(date);
 		
 	    boolean result = gameController.insertRow(insertGame, insertPlayer);
 	
@@ -139,7 +161,7 @@ public class JDBCController {
 		textArea.clear();
 	}
 	
-	public void DisplayButtonHandler(ActionEvent event) throws SQLException{
+	public void DisplayyyyyyyyyyButtonHandler(ActionEvent event) throws SQLException{
 		String string = "";
 
 		String SQLQueryP = "select * from player";
@@ -233,8 +255,16 @@ public class JDBCController {
 		// gameCol.setCellFactory(cellFactoryForMap);
 		
 	}
-}				
 	
+	public void DisplayButtonHandler(ActionEvent event) throws SQLException{
+		
+textArea.setVisible(true);
+textArea.getStyleClass().add("custom");
+textArea.setText(gameController.DisplayAllGames().toString());
+
+	}
+}				
+
 		
 
 
