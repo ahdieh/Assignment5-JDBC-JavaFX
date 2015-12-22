@@ -23,7 +23,28 @@
 	-fx-background-color: #819FF7;
 	-fx-font-weight: bold;
 }
+#UpdateButton{
+	-fx-background-color: #ffffcc;
+	-fx-font-weight: bold;
+}
 
+#InsertButton{
+	-fx-background-color: #ccffff;
+	-fx-font-weight: bold;
+}
+
+#displaySearchButton{
+	-fx-background-color: #66ff66;
+	-fx-font-weight: bold;
+}
+#addButton{
+	-fx-background-color: #66ff66;
+	-fx-font-weight: bold;
+}
+#searchButton{
+	-fx-background-color: #ff9966;
+	-fx-font-weight: bold;
+}
 .custom{
 	-fx-control-inner-background: #F2F5A9;
 }

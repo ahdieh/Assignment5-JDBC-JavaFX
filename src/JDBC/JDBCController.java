@@ -1,46 +1,26 @@
 package JDBC;
 
 
-import java.awt.Color;
-import java.io.InputStream;
+import java.util.Date;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.text.spi.DateFormatProvider;
-import java.util.ArrayList;
-import java.util.Locale;
-
-import com.sun.javafx.collections.MappingChange.Map;
-import com.sun.javafx.geom.transform.Identity;
 
 import JDBC.beans.Game;
 import JDBC.beans.Player;
 import JDBC.beans.PlayerAndGame;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.util.Callback;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 public class JDBCController {
 	@FXML private ImageView imageView;
@@ -54,6 +34,7 @@ public class JDBCController {
 	@FXML private Label phoneLabel;
 	@FXML private Label playingDateLabel;
 	@FXML private Label scoreLabel;
+	@FXML private Label searchPlayerIdLabel;
 	
 	@FXML private TextField gameTextField;
 	@FXML private TextField firstNameTextField;
@@ -63,17 +44,19 @@ public class JDBCController {
 	@FXML private TextField phoneTextField;
 	@FXML private TextField playingDateTextField;
 	@FXML private TextField scoreTextField;
+	@FXML private TextField searchPlayerIdTextField;
 	
 	@FXML private TextArea addressTextArea;
 	@FXML private TextArea textArea;
 
-
-	@FXML private Button insertButton;
-	@FXML private Button updateButton;
+	@FXML private Button addButton;
+	@FXML private Button InsertButton;
+	@FXML private Button UpdateButton;
 	@FXML private Button addPlayerButton;
 	@FXML private Button updatePlayerButton;
 	@FXML private Button deletePlayerButton;
 	@FXML private Button displayPlayerButton;
+	@FXML private Button searchButton;
 	
 	@FXML private GridPane gridPane;
 
@@ -81,38 +64,48 @@ public class JDBCController {
 	// Display Game
 
 	// Add Player and Game
-	public void InsertButtonHandler(ActionEvent event){
+	public void addButtonHandler(ActionEvent event){
 
-	    	gameLabel.setOpacity(1);
-	    	gameTextField.setVisible(true);
-	    	
-
-			firstNameLabel.setOpacity(1);
-			lastNameLabel.setOpacity(1);
-			addressLabel.setOpacity(1);
-			postalCodeLabel.setOpacity(1);
-			provinceLabel.setOpacity(1);
-			phoneLabel.setOpacity(1);
-			
-			firstNameTextField.setVisible(true);
-			lastNameTextField.setVisible(true);
-			addressTextArea.setVisible(true);
-			postalCodeTextField.setVisible(true);
-			provinceTextField.setVisible(true);
-			phoneTextField.setVisible(true);
-			
-			gameTextField.clear();
-			firstNameTextField.clear();
-			lastNameTextField.clear();
-			addressTextArea.clear();
-			postalCodeTextField.clear();
-			provinceTextField.clear();
-			phoneTextField.clear();
-            
+		clearAndVisible();
 	  }
 	
-	// Update Game
-	public void UpdateButtonHandler(ActionEvent event){
+	public void clearAndVisible(){
+		gameLabel.setOpacity(1);
+    	gameTextField.setVisible(true);
+    	
+
+		firstNameLabel.setOpacity(1);
+		lastNameLabel.setOpacity(1);
+		addressLabel.setOpacity(1);
+		postalCodeLabel.setOpacity(1);
+		provinceLabel.setOpacity(1);
+		phoneLabel.setOpacity(1);
+		playingDateLabel.setOpacity(1);
+		scoreLabel.setOpacity(1);
+		
+		
+		firstNameTextField.setVisible(true);
+		lastNameTextField.setVisible(true);
+		addressTextArea.setVisible(true);
+		postalCodeTextField.setVisible(true);
+		provinceTextField.setVisible(true);
+		phoneTextField.setVisible(true);
+		playingDateTextField.setVisible(true);
+		scoreTextField.setVisible(true);
+		
+		gameTextField.clear();
+		firstNameTextField.clear();
+		lastNameTextField.clear();
+		addressTextArea.clear();
+		postalCodeTextField.clear();
+		provinceTextField.clear();
+		phoneTextField.clear();
+		playingDateTextField.clear();
+		scoreTextField.clear();
+	}
+	
+	// Insert Game
+	public void InsertButtonHandler(ActionEvent event){
       // insert or create
     Game insertGame = new Game();
     Player insertPlayer = new Player();
@@ -128,12 +121,17 @@ public class JDBCController {
 		insertPlayer.setProvince(provinceTextField.getText());
 		insertPlayer.setPhoneNumber(phoneTextField.getText());
 		
-		String dateString = playingDateTextField.getText();
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = (Date) formatter.parse(dateString);
-		insertPlayerAndGame.setPlayingDate(date);
+		insertPlayerAndGame.setPlayerId(insertPlayer.getPlayerId());
+		insertPlayerAndGame.setGameId(insertGame.getId());
 		
-	    boolean result = gameController.insertRow(insertGame, insertPlayer);
+		String date = playingDateTextField.getText();
+		DateFormat  formatter = new SimpleDateFormat("yyyy-mm-dd");
+		Date playingDate = (Date)formatter.parse(date);
+		insertPlayerAndGame.setPlayingDate(playingDate);
+				
+		insertPlayerAndGame.setScore(Integer.parseInt(scoreTextField.getText()));
+		
+	    boolean result = gameController.insertRow(insertGame, insertPlayer, insertPlayerAndGame);
 	
 	    if(result) {
 		System.out.println("The game with id " + insertGame.getId() + " was added to the list");
@@ -141,6 +139,7 @@ public class JDBCController {
 	    textArea.setVisible(true);
 		textArea.setText("The game with id " + insertGame.getId() + " was added to the list");
 		textArea.setText("The player with id " + insertPlayer.getPlayerId() + " was added to the list");
+
 	    }
 	
     } catch (Exception exception) {
@@ -149,6 +148,121 @@ public class JDBCController {
   }
 	
 
+	public void searchButtonHandler(ActionEvent event){
+		
+		searchPlayerIdLabel.setOpacity(1);
+		searchPlayerIdTextField.setVisible(true);
+		
+	}
+	
+	public void DisplaySearchButtonHandler(ActionEvent event){
+		int playerId = Integer.parseInt(searchPlayerIdTextField.getText());
+		DisplaySearch( playerId);
+	} 
+
+		public void DisplaySearch(int playerId){
+			
+		clearAndVisible();
+	
+		String SqlQueryP = "SELECT * FROM player " +
+				   "where player_id=" + playerId ;
+		
+				
+		String SqlQueryPG = "SELECT * FROM playerandgame " +
+				  "where playerandgame.player_id=" + playerId;
+		
+		
+		try(	Connection connection = DBConfig.getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSetP = statement.executeQuery(SqlQueryP);
+				){
+			while(resultSetP.next()){
+		
+				firstNameTextField.setText(resultSetP.getString("player.first_name"));
+				lastNameTextField.setText(resultSetP.getString("player.last_name"));
+				addressTextArea.setText(resultSetP.getString("player.address"));
+				postalCodeTextField.setText(resultSetP.getString("player.postal_code"));
+				provinceTextField.setText(resultSetP.getString("player.province"));
+				phoneTextField.setText(resultSetP.getString("player.phone_number"));
+				
+			}
+			ResultSet resultSetPG = statement.executeQuery(SqlQueryPG);
+			int gameId = 0;
+			
+			while(resultSetPG.next()){
+				playingDateTextField.setText(resultSetPG.getString("playerandgame.playing_date"));
+				scoreTextField.setText(Integer.toString(resultSetPG.getInt("playerandgame.score")));
+				gameId = resultSetPG.getInt("game_id");
+			}
+			
+			String SqlQueryG = "SELECT * FROM game "
+					+ "where game_id =" + gameId;
+			ResultSet resultSetG = statement.executeQuery(SqlQueryG);
+			while(resultSetG.next()){
+				gameTextField.setText(resultSetG.getString("game.game_title"));
+
+			}
+			
+		}catch(SQLException exception){
+			 DBConfig.displayException(exception);
+		}	}
+
+		public void UpdateButtonHandler(ActionEvent event) throws SQLException{
+			
+			int playerId = Integer.parseInt(searchPlayerIdTextField.getText());
+			Update(playerId);
+		}
+			
+	
+			public void Update(int playerId) throws SQLException{
+			
+		
+				String SqlQueryP = "Update player set " + 
+			                    "first_name ='"+firstNameTextField.getText()+"'" +
+			                    ",last_name ='"+lastNameTextField.getText()+"'" +
+						        ",address = '"+addressTextArea.getText()+"'" +
+			                    ",postal_code = '"+postalCodeTextField.getText()+"'"+
+						        ",province ='"+provinceTextField.getText()+"'"+
+        	   				    ",phone_number ='"+ phoneTextField.getText()+"'"+
+								" where player_id ='" + playerId +"'";
+				
+				String SqlQuery = "Select * from playerandgame " +
+				       "where player_id ='" + playerId +"'";
+				
+				String SqlQueryPG = "Update playerandgame set " +
+				        "playing_date ='"+playingDateTextField.getText()+"'"+
+						",score = '" + scoreTextField.getText()+"'"+
+						"where player_id ='" + playerId +"'";
+							
+				try(
+						Connection connection = DBConfig.getConnection();
+						Statement statement = connection.createStatement();
+						
+						){
+					statement.executeUpdate(SqlQueryP);
+					ResultSet rs = statement.executeQuery(SqlQuery);
+
+						int gameId = 0;
+						while(rs.next()) {
+							 
+							gameId = rs.getInt("game_id");
+						}
+						
+						statement.executeUpdate(SqlQueryPG);
+						String SqlQueryG = "Update game set " +
+						        "game.game_title ='"+gameTextField.getText()+"'"+
+						        " where game_id ='" + gameId +"'";
+						
+						statement.executeUpdate(SqlQueryG);
+					
+					
+				}catch (SQLException exception) {
+					DBConfig.displayException(exception);
+				} 
+					
+			}
+
+	
 	public void ClearButtonHandler(ActionEvent event){
 		
 		gameTextField.clear();
@@ -159,102 +273,11 @@ public class JDBCController {
 		provinceTextField.clear();
 		phoneTextField.clear();
 		textArea.clear();
+		playingDateTextField.clear();
+		scoreTextField.clear();
 	}
 	
-	public void DisplayyyyyyyyyyButtonHandler(ActionEvent event) throws SQLException{
-		String string = "";
-
-		String SQLQueryP = "select * from player";
-
-		ResultSet resultSetG;
-		ResultSet resultSetP;
-		ResultSet resultSetPG = null;
-		try(
-				Connection connection = DBConfig.getConnection();
-
-				PreparedStatement statementP = connection.prepareStatement(SQLQueryP);
-				
-			   ) {
-			resultSetP = statementP.executeQuery();
-			ArrayList<Integer> players = new ArrayList<>();
-			ArrayList<String> firstNames = new ArrayList<>();
-			ArrayList<Integer> gameIds = new ArrayList<>();
-			ArrayList<String> games = new ArrayList<>();
-			
-			while(resultSetP.next()) {
-				textArea.setVisible(true);
-				players.add(resultSetP.getInt("player_id"));
-				firstNames.add(resultSetP.getString("first_name"));
-			}
-			for (int i =0; i<firstNames.size();i++){
-
-				
-				string = string +"\nPlayer " +": " + firstNames.get(i) ;
-			}	
-			
-			for (int i =0; i<players.size();i++){
-				String SQLQueryPG = "select a.player_id, a.game_id , b.player_id from playerAndGame a, player b where a.player_game_id = b.player_id"  ;
-				
-		    	PreparedStatement statementPG = connection.prepareStatement(SQLQueryPG);
-			     resultSetPG = statementPG.executeQuery();
-			     gameIds.add(resultSetPG.getInt("game_id"));
-			 }
-			
-			//for (int i =0; i<gameIds.size();i++){
-			//	String SQLQueryG = "select a.game_id, a.game_title, b.game_id from game a, playerAndGame b where a.game_id = b.game_id";
-			//	PreparedStatement statementG = connection.prepareStatement(SQLQueryG);
-			//    resultSetG = statementG.executeQuery();
-		    //    games.add(resultSetPG.getString("game_title"));
-			// }
-		
-
-			textArea.setMaxSize(300, 300);
-
-			
-			for (int i =0; i<players.size();i++){
-
-											
-					string = string +"\nPlayer " +": " + firstNames.get(i) +" , the game: " ;
-				}	
-				
-				textArea.setText(string);
-				
-	    } catch (SQLException exception) {
-	    	System.err.println(exception);
-	        } 
-		
-		//TableView table = new TableView();
-		//Label label = new Label("Display data");
-		
-		// table.setEditable(true);
-		 
-		// TableColumn firstNameCol = new TableColumn("First Name");
-	   //  TableColumn lastNameCol = new TableColumn("Last Name");
-	   //  TableColumn gameCol = new TableColumn("Game");
-	   //  
-	   //  table.getColumns().addAll(firstNameCol, lastNameCol, gameCol);
-	     
-	     	     
-	//	gridPane.getChildren().addAll( label, table);
-		
-	//	table.getSelectionModel().setCellSelectionEnabled(true);
-	//	table.getColumns().setAll(firstNameCol, lastNameCol, gameCol);	
-		
-		//Callback<TableColumn<Map, String>, TableCell<Map, String>>
-		// cellFactoryForMap = (TableColumn<Map, String> p) -> new TextFieldTableCell(){
-		//	 public String toString(Object t) {
-      //           return t.toString();
-        //     }
-		//	 public Object fromString(String string) {
-        //         return string;
-         //    }
-		// };
-
-		// firstNameCol.setCellFactory(cellFactoryForMap);
-		// lastNameCol.setCellFactory(cellFactoryForMap);
-		// gameCol.setCellFactory(cellFactoryForMap);
-		
-	}
+	
 	
 	public void DisplayButtonHandler(ActionEvent event) throws SQLException{
 		

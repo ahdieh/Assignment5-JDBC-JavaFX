@@ -21,13 +21,36 @@
 
       <!-- Game -->
 
-      <Button fx:id="insertButton" 
-      onAction="#InsertButtonHandler" 
+      <Button fx:id="addButton" 
+      onAction="#addButtonHandler" 
       text="Add PLAYER and GAME" 
       prefHeight="30"  
       GridPane.columnIndex="0"  GridPane.rowIndex="1" 
       GridPane.columnSpan="2"/>
-     gameTextField
+      
+      <Button fx:id="searchButton" 
+      onAction="#searchButtonHandler" 
+      text="Search PLAYER" 
+      prefHeight="30"  
+      GridPane.columnIndex="2"  GridPane.rowIndex="1" 
+      GridPane.columnSpan="2"/>
+       
+       <Label fx:id="searchPlayerIdLabel" 
+      opacity="0.2" 
+      text="Enter a Player Id:" 
+      prefHeight="30"  
+      GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      
+      <TextField fx:id="searchPlayerIdTextField" 
+      visible="false" 
+      prefHeight="30"  
+      GridPane.columnIndex="2" GridPane.rowIndex="3" />
+       
+       <Button fx:id="displaySearchButton"  
+      text="Display"
+      onAction="#DisplaySearchButtonHandler" 
+      prefHeight="30"  prefWidth="200"
+      GridPane.columnIndex="2" GridPane.rowIndex="4" />
        
       <Label fx:id="firstNameLabel" 
       opacity="0.2" 
@@ -95,7 +118,7 @@
       <Label fx:id="phoneLabel" 
       opacity="0.2" 
       text="Phone Number(0123456789):" 
-      prefHeight="30"  
+      prefHeight="30"  prefWidth="200"
       GridPane.columnIndex="0" GridPane.rowIndex="8" />
       
       <TextField fx:id="phoneTextField" 
@@ -107,44 +130,50 @@
       opacity="0.2" 
       text="Playing date:" 
       prefHeight="30"  
-      GridPane.columnIndex="0" GridPane.rowIndex="8" />
+      GridPane.columnIndex="0" GridPane.rowIndex="9" />
       
       <TextField fx:id="playingDateTextField" 
       visible="false" 
       prefHeight="30" 
-      GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      GridPane.columnIndex="1" GridPane.rowIndex="9" />
       <Label fx:id="scoreLabel" 
       opacity="0.2" 
       text="Score:" 
       prefHeight="30"  
-      GridPane.columnIndex="0" GridPane.rowIndex="8" />
+      GridPane.columnIndex="0" GridPane.rowIndex="10" />
       
       <TextField fx:id="scoreTextField" 
       visible="false" 
       prefHeight="30" 
-      GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      GridPane.columnIndex="1" GridPane.rowIndex="10" />
       
-      <Button fx:id="updateButton"  
+      <Button fx:id="InsertButton"  
+      onAction="#InsertButtonHandler" 
+      text="Insert"
+      prefHeight="30"  prefWidth="200"
+      GridPane.columnIndex="0" GridPane.rowIndex="11" />
+      
+      <Button fx:id="UpdateButton"  
       onAction="#UpdateButtonHandler" 
-      text="Update"
-      prefHeight="30"  
-      GridPane.columnIndex="0" GridPane.rowIndex="9" />
-      
+      text="Update changes "
+      prefHeight="30"  prefWidth="200"
+      GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            
       <Button fx:id="displayPlayerButton"  
       text="Display Player"
       onAction="#DisplayButtonHandler" 
-      prefHeight="30"  
-      GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      prefHeight="30"  prefWidth="200"
+      GridPane.columnIndex="2" GridPane.rowIndex="11" />
       
       <Button fx:id="clearButton" 
       onAction="#ClearButtonHandler" 
       text="Clear" 
-      prefHeight="30"  
-      GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      prefHeight="30"  prefWidth="200"
+      GridPane.columnIndex="3" GridPane.rowIndex="11" />
       
       <TextArea fx:id="textArea" 
       visible="false" 
-      GridPane.columnIndex="0" GridPane.rowIndex="10" 
+      GridPane.columnIndex="0" GridPane.rowIndex="12" 
       GridPane.columnSpan="4"
       
       />
